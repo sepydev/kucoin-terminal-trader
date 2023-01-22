@@ -1,2 +1,4 @@
 kucoin-python
 PyYAML~=5.4.1
+pandas~=1.5.3
+ta-lib
