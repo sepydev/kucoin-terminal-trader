@@ -29,3 +29,14 @@
 ## All spot - Kucoin
 ## order profit ?
 ## remove profit ?
+
+
+
+# config.yaml file should be like this
+```yaml
+kucoin:
+  api_key: YOUR_API_KEY
+  api_secret: YOUR_API_SECRET
+  base_url: https://api.kucoin.com/v1
+  timeout: 10
+```
