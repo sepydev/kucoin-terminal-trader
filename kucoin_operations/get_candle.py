@@ -1,6 +1,6 @@
 import kucoin
 import pandas as pd
-import ta
+import talib as ta
 
 from kucoin_operations.operation_inteface import IOperation
 
@@ -17,9 +17,9 @@ class GetCandle(IOperation):
         if self.validate(**kwargs):
             market = kwargs.get('market')
             time_frame = kwargs.get('time_frame')
-            kline_data = kucoin_client.get_candle(market, time_frame)
-            kline_data = pd.DataFrame(kline_data, columns=["time", "open", "high", "low", "close", "volume"])
-            kline_data['time'] = pd.to_datetime(kline_data['time'], unit='ms')
+            kline_data = kucoin_client.get_kline(market, time_frame)
+            kline_data = pd.DataFrame(kline_data, columns=["time", "open", "close", "high", "low", "volume", "amount"])
+            kline_data['time'] = pd.to_datetime(kline_data['time'], unit='s')
             kline_data = kline_data.set_index('time')
             kline_data['MA'] = kline_data['close'].rolling(window=5).mean()
             kline_data['EMA'] = kline_data['close'].ewm(span=5).mean()
