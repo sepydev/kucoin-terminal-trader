@@ -10,7 +10,7 @@ class CreateStopLossOrder(IOperation):
         price = kwargs.get('price')
         size = kwargs.get('size')
         stop_price = kwargs.get('stop_price')
-        if any(map(lambda x: x is not None, [market, side, price, size, stop_price])):
+        if any(map(lambda x: x is None, [market, side, price, size, stop_price])):
             raise ValueError("Missing argument")
         return True
 
@@ -21,4 +21,10 @@ class CreateStopLossOrder(IOperation):
             price = kwargs.get('price')
             size = kwargs.get('size')
             stop_price = kwargs.get('stop_price')
-            return kucoin_client.create_stop_order(market, side, size, price, stop_price)
+            return trade_client.create_limit_stop_order(
+                symbol=market,
+                side=side,
+                size=size,
+                price=price,
+                stopPrice=stop_price
+            )

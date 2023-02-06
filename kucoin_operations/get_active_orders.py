@@ -9,4 +9,4 @@ class GetActiveOrders(IOperation):
 
     def execute(self, kucoin_client: kucoin.client.Market, trade_client: kucoin.client.Trade, **kwargs):
         if self.validate(**kwargs):
-            return kucoin_client.get_active_orders()
+            return trade_client.get_order_list()

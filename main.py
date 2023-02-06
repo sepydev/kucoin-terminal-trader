@@ -1,9 +1,7 @@
 import argparse
-
+import yaml
 from kucoin.client import Market
 from kucoin.client import Trade
-
-import yaml
 
 from arguments import add_arguments
 from kucoin_operations.cancel_stop_loss_order import CancelStopLossOrder
@@ -20,7 +18,7 @@ from kucoin_operations.update_take_profit import UpdateTakeProfit
 
 def get_operation(args: argparse.Namespace) -> str:
     for key, value in args.__dict__.items():
-        if isinstance(value, bool):
+        if isinstance(value, bool) and value:
             return key
 
 
@@ -50,11 +48,14 @@ with open("config.yaml") as f:
 api_key = config['kucoin']['api_key']
 api_secret = config['kucoin']['api_secret']
 base_url = config['kucoin']['base_url']
+api_passphrase = str(config['kucoin']['api_passphrase'])
+# api_passphrase = ''  # config['kucoin']['api_passphrase']
 kucoin_client = Market(url=base_url)
 
-trade_client = Trade(key='', secret='', passphrase='', is_sandbox=False, url='')
-
+# trade_client = Trade(key=api_key, secret=api_secret, passphrase=api_passphrase, is_sandbox=True, url=base_url)
+trade_client = Trade(api_key, api_secret, api_passphrase, is_sandbox=True)
 operation_class = operations.get(get_operation(args))
+
 if operation_class:
     operation_obj = operation_class()
     response = operation_obj.execute(kucoin_client, trade_client, **args.__dict__)

@@ -2,7 +2,7 @@ def add_arguments(parser):
     # get candle
     parser.add_argument('--get_candle', '-g', help='Get candle data', action="store_true")
     # active orders
-    parser.add_argument('--get_active_orders', '-ga', help='Get active orders' , action="store_true")
+    parser.add_argument('--get_active_orders', '-ga', help='Get active orders', action="store_true")
     # create stop loss
     parser.add_argument('--create_stop_loss_order', '-cs', help='Create stop loss order', action="store_true")
     # cancel stop loss
