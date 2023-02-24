@@ -22,7 +22,7 @@ class GetCandle(IOperation):
             kline_data['time'] = pd.to_datetime(kline_data['time'], unit='s')
             kline_data = kline_data.set_index('time')
             kline_data = kline_data.sort_values('time',ascending=True)
-            kline_data['MA'] = kline_data['close'].rolling(window=5).mean()
-            kline_data['EMA'] = kline_data['close'].ewm(span=5).mean()
+            kline_data['MA'] = kline_data['close'].rolling(window=9).mean()
+            kline_data['EMA'] = kline_data['close'].ewm(span=20).mean()
             kline_data['RSI'] = ta.RSI(kline_data['close'], timeperiod=14)
             return kline_data
